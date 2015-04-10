@@ -23,3 +23,15 @@ successor(A,S) :- reverse(A,R),
 
 next([0|R],[1|R]).
 next([1|R],[0|S]) :- next(R,S).
+
+true_value(N,_,_,N) :- member(N,[0,1]).
+true_value(X,Vars,A,Val) :- atom(X),
+                             lookup(X,Vars,A,Val).
+true_value(X and Y,Vars,A,Val) :- true_value(X,Vars,A,VX),
+                                   true_value(Y,Vars,A,VY),
+                                   boole_and(VX,VY,Val).
+true_value(X or Y,Vars,A,Val) :-  true_value(X,Vars,A,VX),
+                                   true_value(Y,Vars,A,VY),
+                                   boole_or(VX,VY,Val).
+true_value(not X,Vars,A,Val) :-   true_value(X,Vars,A,VX),
+                                   boole_not(VX,Val).
