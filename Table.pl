@@ -35,3 +35,7 @@ true_value(X or Y,Vars,A,Val) :-  true_value(X,Vars,A,VX),
                                    boole_or(VX,VY,Val).
 true_value(not X,Vars,A,Val) :-   true_value(X,Vars,A,VX),
                                    boole_not(VX,Val).
+
+lookup(X,[X|_],[V|_],V).
+lookup(X,[_|Vars],[_|A],V) :- lookup(X,Vars,A,V).
+
